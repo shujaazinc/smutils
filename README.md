@@ -15,7 +15,7 @@ You can install the development version of `smutils` from GitHub using the `devt
 install.packages("devtools")
 
 # Install the development version of smutils
-devtools::install_github("ShujaazInc/smutils")
+devtools::install_github("Shujaazinc/smutils")
 ```
 
 ## Example
