@@ -6,16 +6,16 @@
 #'
 #' @param data A data frame containing the dataset.
 #' @param columns A character vector specifying the names of the columns to be used.
-#' @return A data frame with the original data and added reach metrics columns (`reach_p` and `reach_n`).
+#' @return A data frame with the original data and added reach metrics columns (`engage_p` and `engage_n`).
 #' @import dplyr
 #' @importFrom stats prcomp
 #' @examples
 #' \dontrun{
-#' columns_to_use <- c("page_views_total", "page_video_views", "photo_views")
-#' facebook_reach_week <- estimate_reach(facebook_reach_week, columns_to_use)
+#' columns_to_use <- c("comments", "likes", "shares")
+#' facebook_engaged <- estimate_engagement(facebook_data, columns_to_use)
 #' }
 #' @export
-estimate_reach <- function(data, columns) {
+estimate_engagement <- function(data, columns) {
 
   # Create the names for the scaled columns by prepending "scaled_" to the original column names
   scaled_columns <- paste0("scaled_", columns)
