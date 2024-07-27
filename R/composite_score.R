@@ -1,18 +1,19 @@
-#' Calculate Reach Metrics for a Dataset
+#' Calculate Reach or Engagement Metrics for a given Dataset
 #'
-#' This function calculates the estmated reach or engagegement metrics for a given dataset and specified columns.
+#' This function calculates the estimated reach or engagement metrics for a given dataset and specified columns.
 #' It normalizes the specified columns, performs PCA, calculates the weights,
 #' and computes the reach metrics.
 #'
 #' @param data A data frame containing the dataset.
 #' @param columns A character vector specifying the names of the columns to be used.
-#' @return A data frame with the original data and added reach metrics columns (`reach_p` and `reach_n`).
+#' @param metric A string decribing the metric being estimated. Either reach or engagement.
+#' @return A data frame with the original data and added reach metrics columns (`p`, `n` and `metric`).
 #' @import dplyr
 #' @importFrom stats prcomp
 #' @examples
 #' \dontrun{
 #' columns_to_use <- c("page_views_total", "page_video_views", "photo_views")
-#' facebook_reach_week <- composite_score(facebook_reach_week, columns_to_use)
+#' facebook_reach_week <- composite_score(facebook_reach_week, columns_to_use, "reach")
 #' }
 #' @export
 composite_score <- function(data, columns, metric) {

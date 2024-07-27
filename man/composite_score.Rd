@@ -2,7 +2,7 @@
 % Please edit documentation in R/composite_score.R
 \name{composite_score}
 \alias{composite_score}
-\title{Calculate Reach Metrics for a Dataset}
+\title{Calculate Reach or Engagement Metrics for a given Dataset}
 \usage{
 composite_score(data, columns, metric)
 }
@@ -10,18 +10,20 @@ composite_score(data, columns, metric)
 \item{data}{A data frame containing the dataset.}
 
 \item{columns}{A character vector specifying the names of the columns to be used.}
+
+\item{metric}{A string decribing the metric being estimated. Either reach or engagement.}
 }
 \value{
-A data frame with the original data and added reach metrics columns (`reach_p` and `reach_n`).
+A data frame with the original data and added reach metrics columns (`p`, `n` and `metric`).
 }
 \description{
-This function calculates the estmated reach or engagegement metrics for a given dataset and specified columns.
+This function calculates the estimated reach or engagement metrics for a given dataset and specified columns.
 It normalizes the specified columns, performs PCA, calculates the weights,
 and computes the reach metrics.
 }
 \examples{
 \dontrun{
 columns_to_use <- c("page_views_total", "page_video_views", "photo_views")
-facebook_reach_week <- composite_score(facebook_reach_week, columns_to_use)
+facebook_reach_week <- composite_score(facebook_reach_week, columns_to_use, "reach")
 }
 }
