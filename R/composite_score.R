@@ -38,12 +38,11 @@ composite_score <- function(data, columns, metric) {
   weights <- abs(loadings) / sum(abs(loadings))
 
   # Calculate the reach_p and reach_n metrics
-  p_metric <- paste0("p_", metric)
-  n_metric <- paste0("n_", metric)
+  p_metric <- paste0(metric, "_p")
+  n_metric <- paste0(metric, "_n")
 
   data[[p_metric]] <- rowSums(sweep(data[scaled_columns], 2, weights, `*`))
   data[[n_metric]] <- rowSums(sweep(data[columns], 2, weights, `*`))
-  data$metric <- metric
 
   return(data)
 }
