@@ -17,6 +17,10 @@
 #' }
 #' @export
 composite_score <- function(data, columns, metric) {
+  # Ensure metric is either "reach" or "engage"
+  if (!(metric %in% c("reach", "engage"))) {
+    stop("Invalid metric. Please specify either 'reach' or 'engage'.")
+  }
 
   # Create the names for the scaled columns by prepending "scaled_" to the original column names
   scaled_columns <- paste0("scaled_", columns)
@@ -34,9 +38,13 @@ composite_score <- function(data, columns, metric) {
   weights <- abs(loadings) / sum(abs(loadings))
 
   # Calculate the reach_p and reach_n metrics
-  data$p <- rowSums(sweep(data[scaled_columns], 2, weights, `*`))
-  data$n <- rowSums(sweep(data[columns], 2, weights, `*`))
+  p_metric <- paste0("p_", metric)
+  n_metric <- paste0("n_", metric)
+
+  data[[p_metric]] <- rowSums(sweep(data[scaled_columns], 2, weights, `*`))
+  data[[n_metric]] <- rowSums(sweep(data[columns], 2, weights, `*`))
   data$metric <- metric
 
   return(data)
 }
+
