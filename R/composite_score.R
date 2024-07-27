@@ -1,21 +1,21 @@
 #' Calculate Reach Metrics for a Dataset
 #'
-#' This function calculates the reach metrics for a given dataset and specified columns.
+#' This function calculates the estmated reach or engagegement metrics for a given dataset and specified columns.
 #' It normalizes the specified columns, performs PCA, calculates the weights,
 #' and computes the reach metrics.
 #'
 #' @param data A data frame containing the dataset.
 #' @param columns A character vector specifying the names of the columns to be used.
-#' @return A data frame with the original data and added reach metrics columns (`engage_p` and `engage_n`).
+#' @return A data frame with the original data and added reach metrics columns (`reach_p` and `reach_n`).
 #' @import dplyr
 #' @importFrom stats prcomp
 #' @examples
 #' \dontrun{
-#' columns_to_use <- c("comments", "likes", "shares")
-#' facebook_engaged <- estimate_engagement(facebook_data, columns_to_use)
+#' columns_to_use <- c("page_views_total", "page_video_views", "photo_views")
+#' facebook_reach_week <- composite_score(facebook_reach_week, columns_to_use)
 #' }
 #' @export
-estimate_engagement <- function(data, columns) {
+composite_score <- function(data, columns, metric) {
 
   # Create the names for the scaled columns by prepending "scaled_" to the original column names
   scaled_columns <- paste0("scaled_", columns)
@@ -33,8 +33,9 @@ estimate_engagement <- function(data, columns) {
   weights <- abs(loadings) / sum(abs(loadings))
 
   # Calculate the reach_p and reach_n metrics
-  data$engage_p <- rowSums(sweep(data[scaled_columns], 2, weights, `*`))
-  data$engage_n <- rowSums(sweep(data[columns], 2, weights, `*`))
+  data$p <- rowSums(sweep(data[scaled_columns], 2, weights, `*`))
+  data$n <- rowSums(sweep(data[columns], 2, weights, `*`))
+  data$metric <- metric
 
   return(data)
 }
