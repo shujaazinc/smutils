@@ -6,14 +6,17 @@
 #'
 #' @param data A data frame containing the dataset.
 #' @param columns A character vector specifying the names of the columns to be used.
-#' @param metric A string decribing the metric being estimated. Either reach or engagement.
-#' @return A data frame with the original data and added reach metrics columns (`p`, `n` and `metric`).
+#' @param metric A string describing the metric being estimated. Either reach or engagement.
+#' @return A list with two elements: a data frame with the original data and added reach metrics columns (`p`, `n` and `metric`),
+#' and a data frame with the weights of the columns.
 #' @import dplyr
 #' @importFrom stats prcomp
 #' @examples
 #' \dontrun{
 #' columns_to_use <- c("page_views_total", "page_video_views", "photo_views")
-#' facebook_reach_week <- composite_score(facebook_reach_week, columns_to_use, "reach")
+#' result <- composite_score(facebook_reach_week, columns_to_use, "reach")
+#' facebook_reach_week <- result$data
+#' weights <- result$weights
 #' }
 #' @export
 composite_score <- function(data, columns, metric) {
@@ -44,6 +47,9 @@ composite_score <- function(data, columns, metric) {
   data[[p_metric]] <- rowSums(sweep(data[scaled_columns], 2, weights, `*`))
   data[[n_metric]] <- rowSums(sweep(data[columns], 2, weights, `*`))
 
-  return(data)
+  # Create a data frame for weights
+  weights_df <- data.frame(Column = columns, Weight = weights, stringsAsFactors = FALSE)
+
+  return(list(data = data, weights = weights_df))
 }
 

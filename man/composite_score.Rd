@@ -11,10 +11,11 @@ composite_score(data, columns, metric)
 
 \item{columns}{A character vector specifying the names of the columns to be used.}
 
-\item{metric}{A string decribing the metric being estimated. Either reach or engagement.}
+\item{metric}{A string describing the metric being estimated. Either reach or engagement.}
 }
 \value{
-A data frame with the original data and added reach metrics columns (`p`, `n` and `metric`).
+A list with two elements: a data frame with the original data and added reach metrics columns (`p`, `n` and `metric`),
+and a data frame with the weights of the columns.
 }
 \description{
 This function calculates the estimated reach or engagement metrics for a given dataset and specified columns.
@@ -24,6 +25,8 @@ and computes the reach metrics.
 \examples{
 \dontrun{
 columns_to_use <- c("page_views_total", "page_video_views", "photo_views")
-facebook_reach_week <- composite_score(facebook_reach_week, columns_to_use, "reach")
+result <- composite_score(facebook_reach_week, columns_to_use, "reach")
+facebook_reach_week <- result$data
+weights <- result$weights
 }
 }
