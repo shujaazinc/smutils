@@ -12,7 +12,7 @@ normalize(x, na.rm = FALSE)
 \item{na.rm}{A logical value indicating whether to remove NA values before normalization. Default is FALSE.}
 }
 \value{
-A numeric vector normalized to the range [0, 1].
+A numeric vector normalized to the range [0, 1], maintaining the original length.
 }
 \description{
 This function normalizes a numeric vector to the range [0, 1].
