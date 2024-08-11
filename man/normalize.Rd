@@ -4,10 +4,12 @@
 \alias{normalize}
 \title{Normalize a numeric vector}
 \usage{
-normalize(x)
+normalize(x, na.rm = FALSE)
 }
 \arguments{
 \item{x}{A numeric vector to be normalized.}
+
+\item{na.rm}{A logical value indicating whether to remove NA values before normalization. Default is FALSE.}
 }
 \value{
 A numeric vector normalized to the range [0, 1].
@@ -17,4 +19,5 @@ This function normalizes a numeric vector to the range [0, 1].
 }
 \examples{
 normalize(c(1, 2, 3, 4, 5))
+normalize(c(1, 2, NA, 4, 5), na.rm = TRUE)
 }
